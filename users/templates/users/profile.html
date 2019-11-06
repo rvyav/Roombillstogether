@@ -1,0 +1,81 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+	<h1><b>Profile page</b></h1>
+	</br>
+	<main role="main" class="container">         
+			<div class="row">
+			  <div class="col-md-5">
+				<img src="{{ profile.profile_picture.url }}" height="100%" width="70%">
+			  </div>
+			  <div class="col-md-3">
+				<div class="content-section">
+				  </br>
+				  <h3><b>{{ profile.username }}</b></h3>
+				  </br>
+				  <h5><b>{{ profile.bio }}</b></h5>
+				  </br>
+				  <a class='btn btn-primary btn-sm' href="{% url 'users:edit_profile' user.id %}">Update</a>
+				</div>
+			  </div>
+			</div>
+	</main>
+	<br>
+	</br>
+	<div class="meta-info ml-3">
+		<p>First name : <b>{{ profile.first_name }}</b></p>
+		<p>Last name : <b>{{ profile.last_name }}</b></p>
+		<p>Phone number : <b>{{ profile.phone_number }}</b></p>
+		<p>Gender : <b>{{ profile.gender }}</b></p>
+	</div>
+	</br>
+	<h3>Personal expenses</h3>
+	</br>
+	{% for month in months%}
+	<a href="{% url 'users:profile_expense_detail' month.slug %}">
+		<div class="col-md-8">
+			<ul>
+				<div class="media mb-3">
+					<div class="media-body">
+						<p style="color:black; text-decoration:none">{{ month }}</p>
+					</br>
+				</div>
+			</ul>
+		</div>
+	</a>
+	{% endfor %}
+</div>
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

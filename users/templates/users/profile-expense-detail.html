@@ -1,0 +1,57 @@
+{% extends "base_core.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h3>{{ month.name }}</h3>
+  </br>
+
+  <!-- Left and right section -->
+  <main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-8">
+              {% for purchases in monthly_purchases %}
+                <div class="media mb-3">
+                    <div class="media-body">
+                        <p style="color:black; text-decoration: none">*{{ purchases }}: ${{ purchases.price }}</p>
+                        <p style="color:black; text-decoration: none">Quantity: {{ purchases.quantity }}</p>
+                    </div>
+                </div>         
+              {% endfor %}
+                    </br>
+                    </br>
+                    <p>Personal total amount spent in <b>{{ month.name }}</b> is : <b>${{ total_price }}</b></p>
+            </div>
+          </div>
+    </main>
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

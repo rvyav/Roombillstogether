@@ -1,0 +1,65 @@
+{% extends "base_core.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>Purchase new item</h1>
+
+	</br>
+	<!-- Left and right section -->
+	<main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-4">
+              <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    </br>
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+              </form>
+            </div>
+            <div class="col-md-4 ml-5">
+              <div class="content-section">
+                <h5><b>Explore</b></h5>
+                </br>
+                <div class="media mb-4">
+                  <div class="media-body">
+                    <a href="{% url 'core:month_list' %}"><p class="mb-0">Monthly expenses</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </main>
+
+
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

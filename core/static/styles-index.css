@@ -1,0 +1,27 @@
+body {
+	color: white;
+}
+
+.bg-light {
+	background-color: #2193b0;  /* fallback for old browsers */
+  background-color: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+  background-color: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+/*****************
+Jumbotron-fluid (Inside header jumbotron)
+*****************/
+
+
+.jumbotron-fluid {
+    background-image: url(/static/images/699cd4e2cf59.jpeg);
+    background-repeat: no-repeat;
+    background-position: 65% 55%;
+    background-size: cover;
+    filter: brightness(100%);
+    height: 580px;
+    filter: brightness(100%) !important;
+    margin-bottom: 0;
+  }
+

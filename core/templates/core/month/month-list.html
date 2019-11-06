@@ -1,0 +1,52 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>List of months</h1>
+
+	</br>
+	<!-- Left and right section -->
+	<main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-8">
+            	<ul>
+              {% for month in months %}
+                <a href='{% url "core:month_detail" month.slug %}'>
+                  <div class="media mb-3">
+                      <div class="media-body">
+                          <p style="color:black; text-decoration:none">{{ month }}</p>
+                        </br>
+                      </div>
+                  </div>
+                </a>
+              {% endfor %}
+              </ul>
+            </div>
+              <!-- Do something to restrict access, maybe in backend is better -->
+              <div class="explore-side ml-3">
+                {% if request.user.is_host == True %}
+                  <a href="{% url 'core:create_month' %}">Create new month</a>
+                {% endif %}
+              </div>
+          </div>
+    </main>
+
+
+
+</div>
+
+{% endblock content %}
+
+
+
+

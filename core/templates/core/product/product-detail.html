@@ -1,0 +1,72 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>Product detail</h1>
+
+	</br>
+	<!-- Left and right section -->
+	<main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-8">
+              <uL>
+                <li>Name: <b>{{ product.name }}</b></li></br>
+                <li>Price: <b>{{ product.price }}</b></li></br>
+                <li>Quantity: <b>{{ product.quantity }}</b></li></br>
+            </div>
+            <div class="col-md-4">
+              <div class="content-section">
+                <h5><b>Explore</b></h5>
+                </br>
+                <div class="media mb-4">
+                  <div class="media-body">
+                    <a href="{% url 'core:month_list' %}"><p class="mb-0">Monthly expenses</p>
+                  </div>
+                </div>
+                <div class="media mb-4">
+                  <div class="media-body">
+                    <a href="{% url 'core:create_product' %}"><p class="mb-0">Create new item</p>
+                  </div>
+                </div>
+            </div>
+          </div>
+    </main>
+    <!-- Only show the button if 'user == author of purchased' -->
+    {% if author == current_user %}
+      <a class='btn btn-primary btn-sm' href="{% url 'core:product_update' product.slug %}">Update</a>
+      <a class='btn btn-danger btn-sm ml-3' href="{% url 'core:product_delete' product.slug %}">Delete</a>
+    {% endif %}
+
+
+
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>Expense Dashboard</h1>
+
+	</br>
+	<!-- Left and right section -->
+	<main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-8">
+            	<ul>
+                <li>Month : <b>{{ expense.name }}</b></li>
+              </ul>
+              <b>List of products purchased</b>
+              </br>
+              </br>
+              <ul>
+                {% for list in product_list %}
+                  <a href='{% url "core:product_detail" list.slug %}'><li>{{ list }}</li></a>
+                {% endfor %}
+              </ul>
+              <p>Total: <b>${{ result }}</b></p>
+            </div>
+            <div class="col-md-4">
+              <div class="content-section">
+                <h5><b>Explore</b></h5>
+                </br>
+                <div class="media mb-4">
+                  <img src="..." class="align-self-center mr-3" alt="...">
+                  <div class="media-body">
+                    <a href='{% url "core:group_list" %}'><p class="mb-0">Display my group</p></a>
+                  </div>
+                </div>
+                <div class="media mb-4">
+                  <img src="..." class="align-self-center mr-3" alt="...">
+                  <div class="media-body">
+                    <p class="mb-0">Display my accomodation</p>
+                  </div>
+                </div>
+          </div>
+    </main>
+
+
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

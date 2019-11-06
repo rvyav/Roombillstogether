@@ -1,0 +1,53 @@
+{% extends "base_core.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>Confirm deletion</h1>
+
+	</br>
+	<!-- Warning section -->
+  <div class="container">         
+    <div class="row">
+        <div class="col-md-8">
+          <p>Are you sure you want to delete <b>{{ product.name }}?</p>
+          <br>
+          <form method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Delete"/>
+          </form>
+        </div>
+    </div>
+  </div>
+
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

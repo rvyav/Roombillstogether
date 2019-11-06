@@ -1,0 +1,54 @@
+{% extends "base_core.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	 <h1>User Profile</h1>
+
+	 </br>
+	  <div role="main" class="container">         
+	          <div class="row">
+	            <div class="col-md-4">
+	              <form method="POST" enctype="multipart/form-data">
+	                    {% csrf_token %}
+	                    {{ form|crispy }}
+	                    </br>
+	                    <input class="btn btn-primary" type="submit" value="Update"/>
+	              </form>
+	            </div>
+	          </div>
+	  </div>
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

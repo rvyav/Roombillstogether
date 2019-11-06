@@ -1,0 +1,39 @@
+{% extends "base_users.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles-auth.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+    </br>
+	</br>
+	<div class="col-md-6 offset-lg-3 mt-5 mb-5">
+        <div class="card">
+          <div class="card-body offset-lg-2">
+            </br>
+            <h3 class="card-title offset-lg-2"><b>Welcome back.</b></h3>
+          </div>
+          <div class="container col-md-8">
+              <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                </br>
+                <button class="btn-primary mb-4" type="submit">Login</button>
+              </form>
+          </div>
+          <div class="text-center">
+                <small class="text-muted">
+                    Don't have an account yet? <a class="ml-2" href="{% url 'users:register' %}">Create an account</a>
+                </small>
+          </div> 
+          </br>
+          </br>
+        </div>
+        </br> 
+    </div>
+</div>
+
+{% endblock %}

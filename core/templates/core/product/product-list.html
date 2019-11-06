@@ -1,0 +1,83 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>Products List</h1>
+  <br>
+  
+
+	</br>
+	<!-- Left and right section -->
+	<main role="main" class="container">         
+          <div class="row">
+            <div class="col-md-8">
+            	<ul>
+                <p>Current expenses for <b>{{ months }}</b>:</p>
+                </br>
+        				{% for product in products %}
+        					<a href='{% url "core:product_detail" product.slug %}'><li>{{ product }}</li></a>
+                {% empty %}
+                  <p>No purchase yet. Start a group first </p>
+        				{% endfor %}
+                </br>
+                </br>
+                <p>Total amount is : <b>Amount</b></p>
+                </br>
+                </br>
+                <p>Your share to pay is : <b>Amount</b></p>
+
+				</ul>
+            </div>
+            <div class="col-md-4">
+              <div class="content-section">
+                <h5><b>Explore</b></h5>
+                </br>
+                <div class="media mb-4">
+                  <img src="..." class="align-self-center mr-3" alt="...">
+                  <div class="media-body">
+                    <a href="{% url 'core:month_list' %}"><p class="mb-0">Monthly Expense</p></a>
+                  </div>
+                </div>
+                <div class="media mb-4">
+                  <img src="..." class="align-self-center mr-3" alt="...">
+                  <div class="media-body">
+                    <a href="{% url 'core:product_creation' %}"><p class="mb-0">Purchase new item</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </main>
+
+
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

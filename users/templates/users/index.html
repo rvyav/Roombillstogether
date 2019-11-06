@@ -1,0 +1,56 @@
+{% extends "base_core.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5 ml-5">
+
+	<h1>List of users</h1>
+
+	</br>
+	
+	<div class="d-flex flex-wrap">
+		{% for user in users %}
+			<div class="card ml-5 mt-3" style="width: 15rem;">
+				<img src="{{ user.profile_picture.url }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">{{ user.username }}</h5>
+					<p class="card-text">{{ user.bio}}</p>
+				</div>
+			</div>
+			</br>
+			</br>
+		{% endfor %}
+	</div>
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django import forms
 from core.models import Product, Month
+from django.contrib import messages
 import datetime
 
 User = get_user_model()
@@ -41,4 +42,15 @@ class MonthForm(ModelForm):
 	class Meta:
 		model = Month
 		fields = ['name',]
+
+	def clean(self, *args, **kwargs):
+		"""
+		The User cannnot create 
+		month already created.
+		"""
+		name = self.cleaned_data.get('name')
+		if name in Month.objects.values_list('name', flat=True):
+			raise forms.ValidationError(f"The month of {name} already exist")
+		return super(MonthForm, self).clean(*args, **kwargs)
+
 

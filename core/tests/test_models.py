@@ -15,20 +15,12 @@ def month():
     obj.save()
     yield obj
 
-def test_month_model_save(month):
-    assert month.name == "january"
-    assert month.name == month.slug
-
-def test_month_get_absolute_url(month, client):
-    response = client.get(reverse('core:month_detail', kwargs={'slug': month.slug}))
-    assert response.status_code == 200
-
-
 @pytest.fixture
 def product():
     month = Month.objects.create(name="january", slug="january")
     month.save()
     user = User.objects.create(username="james", password="password")
+    user.save()
     obj = Product.objects.create(
                             month=month,
                             user=user,
@@ -37,8 +29,19 @@ def product():
                             price=19.99,
                             quantity=1,
     )
+
     obj.save()
+    
     yield obj
+
+
+def test_month_model_save(month):
+    assert month.name == "january"
+    assert month.name == month.slug
+
+def test_month_get_absolute_url(month, client):
+    response = client.get(reverse('core:month_detail', kwargs={'slug': month.slug}))
+    assert response.status_code == 200
 
 def test_product_model_save(product):
     assert product.name == "broom"

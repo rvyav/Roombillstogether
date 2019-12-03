@@ -29,6 +29,8 @@ from .tasks import send_instant_sms
 
 from celery import task
 
+from django.db import transaction
+
 import datetime
 
 
@@ -55,44 +57,45 @@ def month_detail(request, slug):
 	Detail page of a single month.
 	Also display list of expenses.
 	"""
-	month = get_object_or_404(Month, slug=slug)
+	with transaction.atomic():
+		month = get_object_or_404(Month, slug=slug)
 
-	# List of related products
-	product_list = month.months.all()
+		# List of related products
+		product_list = month.months.all()
 
-	# Query 'price' field and it 'quantity'
-	fields = product_list.values_list("price", "quantity")
+		# Query 'price' field and it 'quantity'
+		fields = product_list.values_list("price", "quantity")
 
-	# Multiply 'price' field to it 'quantity'
-	prices = [x * y for x, y in fields if x * y]
+		# Multiply 'price' field to it 'quantity'
+		prices = [x * y for x, y in fields if x * y]
 
-	# Sum of 'prices' fields
-	total_price = sum(prices)
+		# Sum of 'prices' fields
+		total_price = sum(prices)
 
-	# Price per roommate
-	# round result to two decimal points
-	share = round(total_price/3, 2)
+		# Price per roommate
+		# round result to two decimal points
+		share = round(total_price/3, 2)
 
-	# Twilio message content
-	message_broadcast = (f"'The total expense of {month} is ${total_price}.Your share to pay is ${share}.")
+		# Twilio message content
+		message_broadcast = (f"'The total expense of {month} is ${total_price}.Your share to pay is ${share}.")
 
-	# Raw query of all users names and phone numbers
-	phone_numbers = dict(User.objects.filter(is_host=True).values_list("username", "phone_number"))
+		# Raw query of all users names and phone numbers
+		phone_numbers = dict(User.objects.filter(is_host=True).values_list("username", "phone_number"))
 
-	# Send SMS with Celery
-	if request.method == 'POST':
-		for names, numbers in phone_numbers.items():
-			# launch asynchronous task
-			send_instant_sms.delay(60*2)
+		# Send SMS with Celery
+		if request.method == 'POST':
+			for names, numbers in phone_numbers.items():
+				# launch asynchronous task
+				send_instant_sms.delay(message=message_broadcast)
 
-			
-	context = {
-			'month': month, 
-			'product_list':product_list,
-			'total_price':total_price,
-			'share': share
-	}
-	return render(request, 'core/month/month-detail.html', context)
+				
+		context = {
+				'month': month, 
+				'product_list':product_list,
+				'total_price':total_price,
+				'share': share
+		}
+		return render(request, 'core/month/month-detail.html', context)
 
 
 def product_detail(request, slug):

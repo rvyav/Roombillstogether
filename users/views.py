@@ -9,8 +9,11 @@ from django.contrib.auth import get_user_model
 from core.models import Month, Product
 from users.forms import EditProfileForm, UserRegistrationForm
 
+from django.views.decorators.cache import cache_page
+
 User = get_user_model()
 
+@cache_page(60 * 15)
 def index(request):
 	users = User.objects.all()
 
@@ -22,7 +25,7 @@ def profile(request):
 	months = Month.objects.all()
 	product = Product.objects.filter(id__in=months, user=profile).order_by('month')
 	context = {'profile': profile, 'months': months}
-	print(product)
+
 	return render(request, 'users/profile.html', context)
 
 def profile_expense_detail(request, slug):

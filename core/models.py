@@ -45,6 +45,14 @@ class Month(models.Model):
 	def get_absolute_url(self):
 		return reverse('core:month_detail', kwargs={'slug': self.slug })
 
+	# @classmethod
+	# def get_current_month_slug(cls, slug):
+	# 	return cls(slug)
+
+	# @property
+	# def month_id(self):
+	# 	return self.id
+
 class Product(models.Model):
 	month = models.ForeignKey(Month, on_delete=models.CASCADE, related_name='months')
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
@@ -68,6 +76,3 @@ class Product(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('core:product_detail', kwargs={'slug':self.slug })
-
-
-

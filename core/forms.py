@@ -23,21 +23,6 @@ class ProductForm(ModelForm):
 				'month',
 	]
 
-	def clean(self, *args, **kwargs):
-		"""
-		The User can only 
-		choose the current month.
-		"""
-		# Get current month
-		today = datetime.datetime.now()
-		current_month = today.strftime("%B")
-		# Compare to month in forms
-		month = self.cleaned_data.get('month')
-		if str(month) == current_month:
-			return super(ProductForm, self).clean(*args, **kwargs)
-		else:
-			raise forms.ValidationError(f"Purchased can only be created for {current_month}.")
-
 class MonthForm(ModelForm):
 	class Meta:
 		model = Month
@@ -45,8 +30,8 @@ class MonthForm(ModelForm):
 
 	def clean(self, *args, **kwargs):
 		"""
-		The User cannnot create 
-		month already created.
+		The User cannot create a month
+		that already exist.
 		"""
 		name = self.cleaned_data.get('name')
 		if name in Month.objects.values_list('name', flat=True):

@@ -118,13 +118,20 @@ def product_detail(request, slug):
 def create_product(request):
 	"""Create new product."""
 	form = ProductForm(request.POST or None)
+	# Get current month
+	today = datetime.datetime.now()
+	current_month = today.strftime("%B")
 	if form.is_valid():
 		new_form = form.save(commit=False)
 		new_form.user = request.user
-		new_form.save()
-		messages.success(request, 'The product was successfully created')
-		return redirect('core:month_list')
-
+		# Validation the creation of a new item 
+		# only for the current month
+		if str(new_form.month) == current_month:
+			new_form.save()
+			messages.success(request, 'The product was successfully created')
+			return redirect('core:month_list')
+		else:
+			messages.error(request, f"Purchased can only be created for {current_month}.")
 
 	context = {'form': form}
 	return render(request, 'core/product/create-product.html', context)
@@ -138,7 +145,6 @@ def create_month(request):
 		new_form.save()
 		messages.success(request, 'The month was successfully created')
 		return redirect('core:month_list')
-
 
 	context = {'form': form}
 	return render(request, 'core/month/create-month.html', context)
@@ -167,7 +173,6 @@ def product_delete(request, slug):
 
 	context = {'product':product}
 	return render(request, 'core/product/product-delete.html', context)
-
 
 def sms_dashboard(request):
 	pass

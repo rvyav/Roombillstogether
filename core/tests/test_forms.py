@@ -13,6 +13,7 @@ pytestmark = pytest.mark.django_db
 
 @pytest.fixture
 def user():
+    # Create new user
     user_ = User.objects.create(username="james")
     user_.set_password("password")
     user_.save()

@@ -1,9 +1,7 @@
 from core.models import Product, Month
 from django.contrib.auth import get_user_model
-#from .factory import MonthFactory
-
-import pytest
 from django.urls import reverse
+import pytest
 
 User = get_user_model()
 
@@ -11,6 +9,7 @@ pytestmark = pytest.mark.django_db
 
 @pytest.fixture
 def user():
+    # Create new user
     user_ = User.objects.create(username="james")
     user_.set_password("password")
     user_.save()
@@ -18,11 +17,13 @@ def user():
 
 @pytest.fixture
 def month():
+    # Create new month
     month_ = Month.objects.create(name="january", slug="january")
     return month_
 
 @pytest.fixture
 def product(user, month):
+    # Create new product
     product_ = Product.objects.create(
                             month=month,
                             user=user,

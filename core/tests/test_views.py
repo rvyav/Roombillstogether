@@ -16,6 +16,7 @@ pytestmark = pytest.mark.django_db
 
 @pytest.fixture
 def user():
+    # Create new user
     user_ = User.objects.create(username="james")
     user_.set_password("password")
     user_.save()
@@ -23,6 +24,7 @@ def user():
 
 @pytest.fixture
 def product(user):
+    # Create new product
     month = Month.objects.create(name="December", slug="December")
     product = Product.objects.create(
                                 user=user,
@@ -45,18 +47,21 @@ def product(user):
 
 @pytest.fixture
 def month(user):
+    # Create new month
     month = Month.objects.create(name="December", slug="December")
     form = ProductForm(data=month)
     return form
 
 @pytest.fixture
 def logged_in():
+    # Log in the user
     client = Client()
     user_is_logged_in = client.login(username='james', password='password')
     return user_is_logged_in
 
 @pytest.fixture
 def current_month():
+    # Return the current month
     today = datetime.datetime.now()
     current_month_ = today.strftime("%B")
     return current_month_

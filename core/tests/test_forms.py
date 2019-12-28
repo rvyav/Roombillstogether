@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from core.models import Product, Month
 from core.forms import ProductForm, MonthForm
-from users.models import CustomUser
+#from users.models import CustomUser
 import datetime
 import pytest
 
@@ -12,9 +12,15 @@ User = get_user_model()
 pytestmark = pytest.mark.django_db
 
 @pytest.fixture
-def product_with_data():
+def user():
+    user_ = User.objects.create(username="james")
+    user_.set_password("password")
+    user_.save()
+    return user_
+
+@pytest.fixture
+def product_with_data(user):
     month = Month.objects.create(name="December", slug="December")
-    user = CustomUser.objects.create(username="james", password="password")
     product = Product.objects.create(
                                 user=user,
                                 name="broom",
@@ -37,7 +43,7 @@ def product_with_data():
 @pytest.fixture
 def product_with_no_data():
     month = Month.objects.create(name=" ", slug=" ")
-    user = CustomUser.objects.create(username=" ", password=" ")
+    user = User.objects.create(username=" ", password=" ")
     product = Product.objects.create(
                                 user=user,
                                 name=' ',
@@ -66,9 +72,8 @@ class TestProductForm:
 
 
 class TestMonthForm:
-    def test_month_forms_with_valid_data(self):
+    def test_month_forms_with_valid_data(self, user):
         month = Month.objects.create(name="December", slug="December")
-        user = User.objects.create(username="james", password="password")   
 
         form = ProductForm(data=month)
         return form
@@ -77,7 +82,6 @@ class TestMonthForm:
 
     def test_month_forms_with_no_valid_data(self):
         month = Month.objects.create(name=" ", slug=" ")
-        user = User.objects.create(username="james", password="password")
 
         form = ProductForm(data=month)
         return form

@@ -131,7 +131,7 @@ def create_product(request):
 			messages.success(request, 'The product was successfully created')
 			return redirect('core:month_list')
 		else:
-			messages.error(request, f"Purchased can only be created for {current_month}.")
+			messages.warning(request, f"Purchased can only be created for {current_month}.")
 
 	context = {'form': form}
 	return render(request, 'core/product/create-product.html', context)

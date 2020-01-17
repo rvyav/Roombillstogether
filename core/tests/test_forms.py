@@ -66,10 +66,10 @@ def product_with_no_data():
 
 class TestProductForm:
     def test_product_form_with_data(self, product_with_data):
-        assert True == product_with_data.is_valid()
+        assert product_with_data.is_valid() == True
     
     def test_product_form_with_no_data(self, product_with_no_data):
-        assert False == product_with_no_data.is_valid()
+        assert product_with_no_data.is_valid() == False
 
 
 class TestMonthForm:
@@ -79,7 +79,7 @@ class TestMonthForm:
         form = ProductForm(data=month)
         return form
 
-        assert True == form.is_valid()
+        assert form.is_valid() == True
 
     def test_month_forms_with_no_valid_data(self):
         month = Month.objects.create(name=" ", slug=" ")
@@ -87,4 +87,4 @@ class TestMonthForm:
         form = ProductForm(data=month)
         return form
 
-        assert False == form.is_valid()
+        assert form.is_valid() == False

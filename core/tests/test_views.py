@@ -23,9 +23,9 @@ def user():
     return user_
 
 @pytest.fixture
-def product(user):
+def product(user, current_month):
     # Create new product
-    month = Month.objects.create(name="December", slug="December")
+    month = Month.objects.create(name=current_month, slug=current_month)
     product = Product.objects.create(
                                 user=user,
                                 name="broom",
@@ -46,9 +46,9 @@ def product(user):
     return form
 
 @pytest.fixture
-def month(user):
+def month(user, current_month):
     # Create new month
-    month = Month.objects.create(name="December", slug="December")
+    month = Month.objects.create(name=current_month, slug=current_month)
     form = ProductForm(data=month)
     return form
 
@@ -93,7 +93,7 @@ class TestProduct:
         assert len(product_list) == 2
 
     def test_product_detail(self, client, user):
-        month = Month.objects.create(name="january", slug="january")
+        month = Month.objects.create(name="December", slug="December")
         product = Product.objects.create(
                                 month=month,
                                 user=user,
